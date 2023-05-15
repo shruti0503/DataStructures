@@ -71,3 +71,10 @@ int coinChange(vector<int>& coins, int amount) {
     if (dp[amount] == INT_MAX) return -1;
     return dp[amount];
 }
+The table is initialized with INT_MAX except for dp[0] = 0, as zero coins are needed to make an amount of zero.
+It iterates through all amounts from 1 to the target amount and tries each coin denomination for each amount.
+If subtracting the coin value from the current amount gives a valid index in the table and the previous amount's minimum number of coins is not INT_MAX,
+it updates the current amount's minimum coins count if necessary.
+Finally, it checks if the minimum number of coins for the target amount (dp[amount]) is still INT_MAX, 
+indicating that it is not possible to make the amount with the given coins. If so, it returns -1; otherwise, it returns the minimum number of coins.
+This approach has a time complexity of O(amount * coins.size()).
