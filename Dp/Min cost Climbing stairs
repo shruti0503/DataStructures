@@ -21,3 +21,30 @@ int solve(vector<int>& cost, int n){
         return ans;
     }
 };
+
+DYNAMICPROGRAMMING SOLUTION ****************
+class Solution {
+public:
+// RECURSOVE SOLUTION TLE
+//i can either  come by taking 0 step 1
+int solve(vector<int>& cost, int n,vector<int>& dp){
+    //n is the step
+    //base case qqould be 
+    if(n==0) return cost[0];
+    if(n==1) return cost[1];
+    if(dp[n]!=-1) return dp[n];
+    dp[n]=cost[n]+min(solve(cost,n-1,dp),solve(cost,n-2,dp));
+// The min() function is used to find the minimum cost between the two possibilities:
+
+// Take one step from the previous step n-1 and add the cost of the current step (cost[n]).
+// Take two steps from the step before the previous step n-2 and add the cost of the current step (cost[n]).
+    return dp[n];
+}
+    int minCostClimbingStairs(vector<int>& cost) {
+        int n=cost.size();
+        vector<int> dp(n+1,-1);
+
+        int ans=min(solve(cost,n-1,dp),solve(cost,n-2,dp));
+        return ans;
+    }
+};
