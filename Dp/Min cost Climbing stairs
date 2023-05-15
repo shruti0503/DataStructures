@@ -1,0 +1,23 @@
+RECURSIVE SOLUTION*************
+class Solution {
+public:
+// RECURSOVE SOLUTION TLE
+//i can either  come by taking 0 step 1
+int solve(vector<int>& cost, int n){
+    //n is the step
+    //base case qqould be 
+    if(n==0) return cost[0];
+    if(n==1) return cost[1];
+    int ans=cost[n]+min(solve(cost,n-1),solve(cost,n-2));
+// The min() function is used to find the minimum cost between the two possibilities:
+
+// Take one step from the previous step n-1 and add the cost of the current step (cost[n]).
+// Take two steps from the step before the previous step n-2 and add the cost of the current step (cost[n]).
+    return ans;
+}
+    int minCostClimbingStairs(vector<int>& cost) {
+        int n=cost.size();
+        int ans=min(solve(cost,n-1),solve(cost,n-2));
+        return ans;
+    }
+};
