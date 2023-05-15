@@ -1,0 +1,57 @@
+RECURSIVE SOL********************
+class Solution {
+public:
+
+int rec(vector<int>& coins,int amount){
+    //base
+    if(amount==0) return 0;
+    if(amount<0) return INT_MAX;
+    int mini=INT_MAX;
+    for(int i=0;i<coins.size();i++){
+        int ans=rec(coins,amount-coins[i]);
+        if(ans!=INT_MAX){
+            mini=min(mini,1+ans);
+//  By adding 1 to ans, we account for the current coin coins[i] being used.
+
+//  we update mini by taking the minimum between the current mini and 1 + ans. The 1 here represents using the current coin coins[i].
+
+// By taking the minimum between mini and 1 + ans, we keep track of the minimum number of coins required for the current amount.
+        }
+    }
+    return mini;
+
+}
+    int coinChange(vector<int>& coins, int amount) {
+        int ans=rec(coins,amount);
+        if(ans==INT_MAX) return -1;
+        else return ans;
+        
+    }
+};
+
+MEMO *******************************
+class Solution {
+public:
+    int rec(vector<int>& coins, int amount, vector<int>& dp) {
+        if (amount == 0) return 0;
+        if (amount < 0) return -1;
+        if (dp[amount] != -1) return dp[amount];
+
+        int mini = INT_MAX;
+        for (int i = 0; i < coins.size(); i++) {
+            int ans = rec(coins, amount - coins[i], dp);
+            if (ans != -1) {
+                 dp[amount] = min(mini, 1 + ans);
+            }
+        }
+       
+        return dp[amount];
+    }
+
+    int coinChange(vector<int>& coins, int amount) {
+        vector<int> dp(amount + 1, -1);
+        dp[0] = 0;
+        int ans = rec(coins, amount, dp);
+        return ans;
+    }
+};
