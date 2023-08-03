@@ -1,0 +1,42 @@
+class Solution {
+public:
+// BRUTE force
+//A very intuitive approach would be can bring the closer intervals together
+//How? -=> By sorting
+// now that they are sorted 
+//We can create another vector of vector and store it by comparing the stating and the engine intervals
+
+    vector<vector<int>> merge(vector<vector<int>>& intervals) {
+         // Check if the intervals vector is empty or contains only one interval
+        if (intervals.size() <= 1)
+            return intervals;
+
+        // Sort the intervals based on their start time
+       sort(intervals.begin(), intervals.end());
+
+        vector<std::vector<int>> mergedIntervals;
+        vector<int> currentInterval = intervals[0];
+
+        for (int i = 1; i < intervals.size(); i++) {
+            if (currentInterval[1] >= intervals[i][0]) {
+                // Overlapping intervals, update the end time of the current interval
+                currentInterval[1] = std::max(currentInterval[1], intervals[i][1]);
+            } else {
+                // Non-overlapping interval found, push the currentInterval to the result
+                mergedIntervals.push_back(currentInterval);
+                currentInterval = intervals[i]; // Start a new interval
+            }
+        }
+
+         // Push the last remaining interval to the result
+        mergedIntervals.push_back(currentInterval);
+
+        return mergedIntervals;
+
+        
+        
+    }
+};
+
+
+
