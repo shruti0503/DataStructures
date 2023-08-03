@@ -1,0 +1,52 @@
+class Solution {
+public:
+// Brute Force approach 
+// taking another matrix
+// take the second row of the matrix 
+//put it in the second last col of the matrix and so on.
+
+    void rotate(vector<vector<int>>& matrix) {
+        int n=matrix.size();
+        vector<vector<int>> rot(n, vector<int>(n,0));
+
+        for(int i=0;i<n;i++){
+            for(int j=0; j<n;j++){
+                rot[j][n-i-1]=matrix[i][j];
+            }
+        }
+        for(int i=0;i<n;i++){
+            for(int j=0; j<n;j++){
+                matrix[i][j]=rot[i][j];
+            }
+        }
+       
+        
+    }
+
+    //tc o n*n + n*n
+    
+
+};
+
+OPTIMISED
+class Solution {
+public:
+// observe that first col of the original matrix is reversal of the lkast column of the matrix
+// so next app-> transpose the matrix
+// then reverse each row
+// sc -> O(1)
+    void rotate(vector<vector<int>>& matrix) {
+        // step 1 swap
+        for(int i=0;i<matrix.size();i++){
+            for(int j=0;j<i;j++){ // note here the condition j<i
+                swap(matrix[i][j],matrix[j][i]);
+            }
+        }
+
+        // step 2 reverse each row of the matrix
+        for(int i=0;i<matrix.size(); i++){
+            reverse(matrix[i].begin(),matrix[i].end());
+        }
+        
+    }
+};
