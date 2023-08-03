@@ -1,0 +1,34 @@
+class Solution {
+public:
+// brute force --> use sorting and compare with adj elelemnt tc O(nlogn)
+
+// use a hash map 0(n) O(n)
+
+//Linked list cycle method 
+// since there is a duplicate number we can say that a cycle will be fomred.
+// the slow popinter moves by one step and fast poiunter moves by 2 steps and there is a cycle so the first collison is bound to happen.
+
+// assume that the distance between the first ele ans the first collison is x
+// slow pointer 
+
+    int findDuplicate(vector<int>& nums) {
+        int slow = nums[0];
+        int fast = nums[0]; // Correct initialization
+
+        // Phase 1: Find the first collision point
+        do {
+            slow = nums[slow];
+            fast = nums[nums[fast]];
+        } while (slow != fast);
+
+        // Phase 2: Find the entrance of the cycle
+        slow = nums[0];
+        while (slow != fast) {
+            slow = nums[slow];
+            fast = nums[fast];
+        }
+
+        return slow;
+        
+    }
+};
