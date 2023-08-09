@@ -1,0 +1,49 @@
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+
+        // there will be one element is the majority element
+        int cnt=0;
+        int ele;
+
+        for(int i=0;i<nums.size();i++){ // 6,5,5
+
+            ele=nums[i];  // ele=6
+            cnt=1;  
+                // cnt=1;
+                i=i+1;
+
+            while(cnt!=0 && i<nums.size()){
+
+                 if(nums[i]!=ele){ 
+
+                    cnt--;  // cnt=0;
+
+                 }
+                 else{
+                    cnt++;  // cnt=1;
+                 }
+                 
+                 if(cnt==0){
+                     ele=nums[i];
+                     cnt=1;
+                 }    
+                 i++;
+            }
+
+
+
+        }
+
+        for(int i=0;i<nums.size();i++){
+            if(nums[i]==ele){
+                cnt++;
+            }
+        }
+        if(cnt> nums.size()/2){
+            return ele;
+        }
+        return -1;
+        
+    }
+};
